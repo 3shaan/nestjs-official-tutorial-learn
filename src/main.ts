@@ -10,6 +10,9 @@ async function bootstrap() {
       // forbidNonWhitelisted: true,
       // this is to transform the data to the type of the dto and type of the request, its coz performance issue for large data
       transform: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
     }),
   );
   await app.listen(process.env.PORT ?? 3000);

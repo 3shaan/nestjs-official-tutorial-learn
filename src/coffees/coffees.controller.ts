@@ -13,15 +13,16 @@ import {
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeesDto } from './dto/create-coffees.dto/create-coffees.dto';
 import { UpdateCoffeesDto } from './dto/update-coffees.dto/update-coffees.dto';
+import { PaginationDto } from 'src/common/dto/paginations.dto/paginations.dto';
 
 @Controller('coffees')
 export class CoffeesController {
   constructor(private readonly coffeesService: CoffeesService) {}
 
   @Get()
-  findAll(@Query() paginationQuery) {
+  findAll(@Query() paginationQuery: PaginationDto) {
     // const { limit, offset } = paginationQuery;
-    return this.coffeesService.findAll();
+    return this.coffeesService.findAll(paginationQuery);
   }
   @Get(':id')
   findOne(@Param('id') id: string) {
