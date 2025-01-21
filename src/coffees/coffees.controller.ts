@@ -10,33 +10,36 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { CoffeesService } from './coffees.service';
 
 @Controller('coffees')
 export class CoffeesController {
+  constructor(private readonly coffeesService: CoffeesService) {}
+
   @Get()
   findAll(@Query() paginationQuery) {
-    const { limit, offset } = paginationQuery;
-    return `This action returns all coffees. Limit: ${limit}, Offset: ${offset}`;
+    // const { limit, offset } = paginationQuery;
+    return this.coffeesService.findAll();
   }
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `this return a coffee with id ${id}`;
+    return this.coffeesService.findOne(id);
   }
 
   @Post()
   // if i use @Body('name) , then only the name will be returned
-  @HttpCode(HttpStatus.GONE)
+  // @HttpCode(HttpStatus.GONE)
   create(@Body() body) {
-    return body;
+    return this.coffeesService.create(body);
   }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() body) {
-    return `this action update a coffee with id ${id}`;
+    return this.coffeesService.update(id, body);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return `this action remove a coffee with id ${id}`;
+    return this.coffeesService.remove(id);
   }
 }
