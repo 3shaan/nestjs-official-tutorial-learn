@@ -11,6 +11,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { CoffeesService } from './coffees.service';
+import { CreateCoffeesDto } from './dto/create-coffees.dto/create-coffees.dto';
+import { UpdateCoffeesDto } from './dto/update-coffees.dto/update-coffees.dto';
 
 @Controller('coffees')
 export class CoffeesController {
@@ -29,12 +31,12 @@ export class CoffeesController {
   @Post()
   // if i use @Body('name) , then only the name will be returned
   // @HttpCode(HttpStatus.GONE)
-  create(@Body() body) {
+  create(@Body() body: CreateCoffeesDto) {
     return this.coffeesService.create(body);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() body) {
+  update(@Param('id') id: string, @Body() body: UpdateCoffeesDto) {
     return this.coffeesService.update(id, body);
   }
 
